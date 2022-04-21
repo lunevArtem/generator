@@ -1,61 +1,83 @@
-(function () {
-  function makeRequest(method, url) {
-    return new Promise(function (resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open(method, url);
-      xhr.onload = function () {
-        if (this.status >= 200 && this.status < 300) {
-          resolve(xhr.response);
-        } else {
-          reject({ status: this.status, statusText: xhr.statusText });
-        }
-      };
-      xhr.onerror = function () {
-        reject({ status: this.status, statusText: xhr.statusText });
-      };
-      xhr.send();
-    });
-  }
+function foo1() {
+  let userC = document.querySelector("input[name='count']").value;
 
-  function getData() {
-    var number = Math.floor(document.querySelector("#number").value || 1);
-    makeRequest("GET", "https://randomuser.me/api?results=" + number)
-      .then(parse)
-      .catch(function (response) {
-        alert("Somethin' went wrong");
+  fetch("https://randomuser.me/api/?results=" + userC)
+    .then(function (resp) {
+      return resp.json();
+    })
+    .then(function (data) {
+      console.log(data);
+
+      data.results.forEach((user) => {
+        console.log(user.name.first);
+        let container = document.createElement("div");
+        container.classList.add("container-fluid");
+        container.style.marginTop = "1 rem";
+        let rows = document.createElement("div");
+        rows.classList.add("row");
+        let col = document.createElement("div");
+        col.classList.add("col-sm");
+        let col2 = document.createElement("div");
+        col2.classList.add("col-sm");
+        let col3 = document.createElement("div");
+        col3.classList.add("col-sm");
+        col3.style.width = "100px";
+        col.style.width = "100px";
+
+        let Card = document.createElement("div");
+        Card.classList.add("card");
+        let Body = document.createElement("div");
+        Body.classList.add("card-body");
+        let Text = document.createElement("p");
+        Text.classList.add("card-text");
+        let Text2 = document.createElement("p");
+        Text2.classList.add("card-text");
+        let Text3 = document.createElement("p");
+        Text3.classList.add("card-text");
+        const h5 = document.createElement("h5");
+        const h6 = document.createElement("h5");
+        let Img = document.createElement("img");
+        Img.classList.add("card-img-top");
+        Img.style.width = "100px";
+        Img.style.height = "100px";
+        Card.style.border = "1px solid";
+        Card.style.marginTop = "1rem";
+
+        document.body.appendChild(container);
+        container.appendChild(rows);
+        rows.appendChild(col);
+
+        rows.appendChild(col2);
+        col2.appendChild(Card);
+        Card.appendChild(Body);
+        Body.appendChild(Img);
+        Body.appendChild(h5);
+        Body.appendChild(Text);
+        Body.appendChild(Text2);
+        Body.appendChild(Text3);
+
+        rows.appendChild(col3);
+
+        Img.src = user.picture.large;
+        h5.textContent = user.name.first + " " + user.name.last;
+        Text.textContent = user.email;
+        Text2.textContent =
+          "Age: " + user.dob.age + ", Date: " + formatDate(user.dob.date);
+        Text3.textContent = user.location.country + ", " + user.location.city;
       });
-  }
-
-  document.querySelector("#go").addEventListener("click", getData);
-
-  function parse(results) {
-    var results = JSON.parse(results);
-    console.log(results.results);
-    var t = [];
-    results.results.forEach(function (user) {
-      console.log(user.name.first);
-      t.push([
-        user.name.title,
-        user.name.first,
-        user.name.last,
-        user.picture.large,
-        '<img src="' + user.picture.large + '"/>',
-        user.cell,
-        user.email,
-        user.gender,
-        user.location.street,
-        user.location.city,
-        user.location.state,
-        user.location.postcode,
-        user.nat
-      ]);
     });
-    console.log(t);
-    var html = "";
-    t.forEach(function (row) {
-      html += "<tr><td>" + row.join("</td><td>") + "</td></tr>";
-    });
-    document.querySelector("#results").innerHTML =
-      "<table>" + html + "</table>";
-  }
-})();
+}
+function foo3() {
+  location.reload();
+}
+
+function formatDate(date) {
+  var d = new Date(date),
+    month = d.getMonth(),
+    date = d.getDate(),
+    year = d.getFullYear();
+
+  month++;
+
+  return month + "." + date + "." + year;
+}
