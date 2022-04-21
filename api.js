@@ -34,6 +34,8 @@ function foo1() {
         Text2.classList.add("card-text");
         let Text3 = document.createElement("p");
         Text3.classList.add("card-text");
+        let Text4 = document.createElement("p");
+        Text4.classList.add("card-text");
         const h5 = document.createElement("h5");
         const h6 = document.createElement("h5");
         let Img = document.createElement("img");
@@ -55,15 +57,22 @@ function foo1() {
         Body.appendChild(Text);
         Body.appendChild(Text2);
         Body.appendChild(Text3);
+        Body.appendChild(Text4);
 
         rows.appendChild(col3);
 
         Img.src = user.picture.large;
         h5.textContent = user.name.first + " " + user.name.last;
-        Text.textContent = user.email;
-        Text2.textContent =
-          "Age: " + user.dob.age + ", Date: " + formatDate(user.dob.date);
-        Text3.textContent = user.location.country + ", " + user.location.city;
+        Text.textContent = "Email: " + user.email;
+        Text2.textContent = "Phone: " + user.phone;
+        Text3.textContent =
+          "Age: " +
+          user.dob.age +
+          ", Date: " +
+          formatDate(user.dob.date) +
+          ", Gender: " +
+          user.gender;
+        Text4.textContent = user.location.country + ", " + user.location.city;
       });
     });
 }
