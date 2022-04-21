@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <title>API</title>
+  <script src="1.js"></script>
+  <link rel="stylesheet" href="1.css" />
+  <body>
+    <h1>Random User Generator</h1>
+    <p>
+      Using the
+      <a href="https://randomuser.me/api/?results=">randomuser.me</a> API.
+    </p>
+    <p>
+      <input
+        id="number"
+        type="number"
+        placeholder="number of users"
+        name="users"
+        min="1"
+        step="1"
+        value="1"
+        pattern="\d*"
+      />
+      <button id="go">search</button>
+    </p>
+
+    <div id="results"></div>
+  </body>
+</html>
