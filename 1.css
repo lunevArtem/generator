@@ -1,0 +1,11 @@
+html {
+  font-family: sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+td {
+  border: 1px #ccc solid;
+  padding: 4px;
+}
